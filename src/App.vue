@@ -4,7 +4,79 @@ export default {
     return {
       name: 'Suresh Koochana',
       title: 'Software Engineer II',
-      introText: 'Building web apps from scratch, I am passionate about web technologies.'
+      introText: 'Building web apps from scratch, I am passionate about web technologies.',
+      imageUrl: './minion.jpg',
+      headlines: ['About me', 'Contact', 'Skills', 'Certifications', 'Experience', 'Education'],
+      contact: {
+        phone: '15713909584',
+        email: 'kuchana123.suresh@gmail.com',
+        address: 'Main St 100, 19777 NY'
+      },
+      skills: [
+        'ReactJS',
+        'VueJS',
+        'NextJS',
+        'HTML/CSS',
+        'RestFul API/ GraphQL',
+        'Docker',
+        'PostgreSQL'
+      ],
+      experience: [
+        {
+          title: 'Senior Data Scientist',
+          company: 'ABC Analytics Inc.',
+          location: 'London',
+          date: '2022 - Present',
+          description: [
+            'Led a team of data scientists in developing advanced machine learning models for predictive analytics',
+            'Designed and implemented a recommendation system that boosted cross-selling, leading to a 20% increase in revenue',
+            'Conducted A/B testing and statistical analysis to optimize product features'
+          ]
+        },
+        {
+          title: 'Data Scientist',
+          company: 'XYZ Data Solutions',
+          location: 'London',
+          date: '2017 - 2019',
+          description: [
+            'Developed and deployed machine learning models for fraud detection, reducing fraudulent transactions by 18%',
+            'Conducted in-depth exploratory data analysis to identify key trends and insights',
+            'Worked on data preprocessing, feature engineering, and model selection to improve model performance'
+          ]
+        },
+        {
+          title: 'Data Scientist Trainee',
+          company: 'Data Insights Ltd.',
+          location: 'New York City',
+          date: '2016-2017',
+          description: [
+            "Collaborated with external partners to integrate third-party data sources, expanding the company's data assets and enhancing predictive modeling capabilities.",
+            'Presented data-driven insights and recommendations to executive leadership, influencing strategic decisions and driving revenue growth.'
+          ]
+        }
+      ],
+      education: [
+        {
+          title: 'Master of Science in Data Science',
+          university: 'StellarTech University',
+          location: 'Starville',
+          date: '2020-2022',
+          description: [
+            'Coursework included advanced machine learning, statistical modeling, and data visualization techniques.',
+            "Thesis: 'Predictive Modeling for Customer Churn in E-commerce using Random Forest.'"
+          ]
+        },
+        {
+          title: 'Bachelor of Science in Computer Science',
+          university: 'Evergreen State University',
+          location: 'Springdale',
+          date: '2012-2015',
+          description: [
+            'Relevant coursework in database management, algorithms, and programming languages.',
+            "Senior project: 'Development of a Recommender System for Movie Ratings.'"
+          ]
+        }
+      ]
     }
   }
 }
@@ -15,34 +87,40 @@ export default {
     <div id="resume" class="d-flex">
       <div class="left-col">
         <div class="resume-section">
-          <h4 class="section-headline">About me</h4>
+          <img :src="imageUrl" alt="minion" class="profile-pic" />
+
+          <h4 class="section-headline">{{ headlines[0] }}</h4>
           <div>{{ introText }}</div>
         </div>
 
         <div class="resume-section">
-          <h4 class="section-headline">Contact</h4>
-          <ul>
-            <li>15713909584</li>
-            <li>kuchana123.suresh@gmail.com</li>
-            <li>Main St 100, 19777 NY</li>
+          <h4 class="section-headline">{{ headlines[1] }}</h4>
+          <ul class="contact">
+            <li>
+              {{ contact.phone }}
+            </li>
+
+            <li>
+              {{ contact.email }}
+            </li>
+
+            <li>
+              {{ contact.address }}
+            </li>
           </ul>
         </div>
 
         <div class="resume-section">
-          <h4 class="section-headline">Skills</h4>
+          <h4 class="section-headline">{{ headlines[2] }}</h4>
           <ul>
-            <li>ReactJS</li>
-            <li>VueJS</li>
-            <li>NextJS</li>
-            <li>HTML/CSS</li>
-            <li>RestFul API/ GraphQL</li>
-            <li>Docker</li>
-            <li>PostgreSQL</li>
+            <li v-for="(skill, index) in skills" :key="index">
+              {{ skill }}
+            </li>
           </ul>
         </div>
 
         <div class="resume-section">
-          <h4 class="section-headline">Certifications</h4>
+          <h4 class="section-headline">{{ headlines[3] }}</h4>
           <ul>
             <li>React Native by Meta(Coursera)</li>
             <li>React handle large scale applications (Linkedin)</li>
@@ -53,58 +131,32 @@ export default {
         <div class="personal-name">{{ name }}</div>
         <div class="personal-title">{{ title }}</div>
         <div class="resume-section">
-          <h4 class="section-headline">Experience</h4>
+          <h4 class="section-headline">{{ headlines[4] }}</h4>
 
-          <div>Software Engineer II</div>
-          <div>Infinite Blue, Hyd, India, 2021 - Present</div>
-
-          <ul>
-            <li>
-              Led a team of data scientists in developing advanced machine learning models for
-              predictive analytics
-            </li>
-            <li>
-              Designed and implemented a recommendation system that boosted cross-selling, leading
-              to a 20% increase in revenue
-            </li>
-          </ul>
-
-          <div>Data Scientist</div>
-          <div>XYZ Data Solutions, London, 2022 - Present</div>
-
-          <ul>
-            <li>
-              Developed and deployed machine learning models for fraud detection, reducing
-              fraudulent transactions by 18%
-            </li>
-            <li>
-              Conducted in-depth exploratory data analysis to identify key trends and insights
-            </li>
-          </ul>
+          <div v-for="(item, index) in experience" :key="index" class="inner-section">
+            <div>{{ item.title }}</div>
+            <div class="d-flex justify-content-between">
+              <div>{{ item.company }}, {{ item.location }}</div>
+              <div>{{ item.date }}</div>
+            </div>
+            <ul>
+              <li v-for="(desc, innerIndex) in item.description" :key="innerIndex">{{ desc }}</li>
+            </ul>
+          </div>
         </div>
         <div class="resume-section">
-          <h4 class="section-headline">Education</h4>
+          <h4 class="section-headline">{{ headlines[5] }}</h4>
 
-          <div>Master of Science in Data Science</div>
-          <div>StellarTech University, Starville, 2020-2022</div>
-          <ul>
-            <li>
-              Coursework included advanced machine learning, statistical modeling, and data
-              visualization techniques.
-            </li>
-            <li>
-              Thesis: 'Predictive Modeling for Customer Churn in E-commerce using Random Forest.'
-            </li>
-          </ul>
-
-          <div>Bachelor of Science in Computer Science</div>
-          <div>Evergreen State University, Springdale, 2012-2015</div>
-          <ul>
-            <li>
-              Relevant coursework in database management, algorithms, and programming languages.
-            </li>
-            <li>Senior project: 'Development of a Recommender System for Movie Ratings.'</li>
-          </ul>
+          <div v-for="(item, index) in education" :key="index">
+            <div>{{ item.title }}</div>
+            <div class="d-flex justify-content-between">
+              <div>{{ item.university }}, {{ item.location }}</div>
+              <div>{{ item.date }}</div>
+            </div>
+            <ul>
+              <li v-for="(desc, innerIndex) in item.description" :key="innerIndex">{{ desc }}</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -181,5 +233,21 @@ export default {
   padding-inline-start: 16px;
   margin-block-end: 0px;
   margin-block-start: 5px;
+}
+
+.profile-pic {
+  display: block;
+  width: 160px;
+  height: 160px;
+  border: 5px solid var(--highlight-color-left);
+  margin-bottom: 20px;
+  object-fit: cover;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
+}
+
+.inner-section {
+  margin-bottom: 20px;
 }
 </style>
